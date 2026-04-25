@@ -31,7 +31,6 @@ jobs:
 
     - name: Build and Push Backend
       run: |
-        cd BACKEND
         docker build -t ${{ env.BACKEND_IMAGE }}:${{ github.sha }} .
         docker push ${{ env.BACKEND_IMAGE }}:${{ github.sha }}
 
