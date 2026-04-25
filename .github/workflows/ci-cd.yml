@@ -5,11 +5,11 @@ on:
     branches: [ "main" ]
 
 env:
-  PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
-  REGION: ${{ vars.GCP_REGION }}
+  PROJECT_ID: uplifted-sol-493208-m7
+  REGION: europe-central2
   CLUSTER_NAME: klaster-biblioteka 
-  BACKEND_IMAGE: europe-central2-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/projekt-biblioteka/spring-app
-  FRONTEND_IMAGE: europe-central2-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/projekt-biblioteka/react-app
+  BACKEND_IMAGE: europe-central2-docker.pkg.dev/uplifted-sol-493208-m7/projekt-biblioteka/spring-app
+  FRONTEND_IMAGE: europe-central2-docker.pkg.dev/uplifted-sol-493208-m7/projekt-biblioteka/react-app
 
 jobs:
   deploy:
@@ -50,7 +50,6 @@ jobs:
       run: |
         sed -i "s|image: .*spring-app.*|image: ${{ env.BACKEND_IMAGE }}:${{ github.sha }}|g" k8s/03-spring.yaml
         sed -i "s|image: .*react-app.*|image: ${{ env.FRONTEND_IMAGE }}:${{ github.sha }}|g" k8s/04-react.yaml
-        
         kubectl apply -f k8s/
 
     - name: Verify Deployment
