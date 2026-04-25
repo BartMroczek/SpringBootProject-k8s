@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  spring-app:
+    build: .
+    container_name: spring-app
+    ports:
+      - "444:444"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/BibliotekaSpring
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=student
+      - SPRING_WEB_CORS_ALLOW_CREDENTIALS=true
+      - SPRING_WEB_CORS_ALLOWED_ORIGINS=http://localhost:3000
+    networks:
+      - my-network
+    depends_on:
+      - postgres-db
+
+  react-app:
+    build:
+      context: ./KLIENT/
+      dockerfile: Dockerfile
+    container_name: react-app
+    ports:
+      - "3000:3000"
+    networks:
+      - my-network
+
+  postgres-db:
+    image: postgres:latest
+    container_name: postgres-db
+    environment:
+      POSTGRES_DB: BibliotekaSpring
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: student
+    ports:
+      - "5432:5432"
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge

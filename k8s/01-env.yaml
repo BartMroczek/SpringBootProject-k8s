@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: postgres-secret
+type: Opaque
+data:
+  password: c3R1ZGVudA==
+  user: cG9zdGdyZXM=
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+data:
+  DB_NAME: "BibliotekaSpring"
+  DB_URL: "jdbc:postgresql://postgres-service:5432/BibliotekaSpring"
+  CORS_ORIGINS: "*"
