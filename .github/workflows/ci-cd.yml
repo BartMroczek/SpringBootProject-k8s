@@ -49,9 +49,9 @@ jobs:
 
     - name: Update YAMLs and Deploy
       run: |
-        # Podmiana tagów na unikalny numer commitu, aby K8s wymusił restart podów
-        sed -i "s|image: .*spring-app.*|image: ${{ env.BACKEND_IMAGE }}:${{ github.sha }}|g" k8s/spring-app-deployment.yaml
-        sed -i "s|image: .*react-app.*|image: ${{ env.FRONTEND_IMAGE }}:${{ github.sha }}|g" k8s/react-app-deployment.yaml
+        sed -i "s|image: .*spring-app.*|image: ${{ env.BACKEND_IMAGE }}:${{ github.sha }}|g" k8s/03-spring.yaml
+        sed -i "s|image: .*react-app.*|image: ${{ env.FRONTEND_IMAGE }}:${{ github.sha }}|g" k8s/04-react.yaml
+        
         kubectl apply -f k8s/
 
     - name: Verify Deployment
