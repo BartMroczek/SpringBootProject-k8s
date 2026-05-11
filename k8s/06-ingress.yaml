@@ -1,0 +1,33 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: biblioteka-ingress
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: "biblioteka-static-ip"
+    force-update: "3" 
+spec:
+  rules:
+  - host: "biblioteka.endpoints.uplifted-sol-493208-m7.cloud.goog"
+    http:
+      paths:
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: spring-service
+            port:
+              number: 444
+      - path: /admin
+        pathType: Prefix
+        backend:
+          service:
+            name: grafana
+            port:
+              number: 80
+      - path: /
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: react-service
+            port:
+              number: 80

@@ -21,13 +21,7 @@
 <script type="text/babel">
     
     function BibliotekaHook() {
-        let API_BASE_URL;
-
-        if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
-            API_BASE_URL = "http://localhost:444"; 
-        } else {
-            API_BASE_URL = "http://34.118.7.231:444";
-        }
+        let API_BASE_URL = '/api';
 
         const [status, setStatus] = React.useState("OK");
         const [wypozyczenia, setWypozyczenia] = React.useState([]);
