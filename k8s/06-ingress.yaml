@@ -4,7 +4,7 @@ metadata:
   name: biblioteka-ingress
   annotations:
     kubernetes.io/ingress.global-static-ip-name: "biblioteka-static-ip"
-    force-update: "4" 
+    force-update: "5" 
 spec:
   rules:
   - host: "biblioteka.endpoints.uplifted-sol-493208-m7.cloud.goog"
@@ -25,7 +25,7 @@ spec:
             port:
               number: 80
       - path: /
-        pathType: Prefix
+        pathType: ImplementationSpecific
         backend:
           service:
             name: react-service
