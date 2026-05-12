@@ -7,13 +7,14 @@ on:
 env:
   PROJECT_ID: uplifted-sol-493208-m7
   REGION: europe-central2
-  CLUSTER_NAME: klaster-biblioteka 
   BACKEND_IMAGE: europe-central2-docker.pkg.dev/uplifted-sol-493208-m7/projekt-biblioteka/spring-app
   FRONTEND_IMAGE: europe-central2-docker.pkg.dev/uplifted-sol-493208-m7/projekt-biblioteka/react-app
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
@@ -40,19 +41,14 @@ jobs:
         docker build -t ${{ env.FRONTEND_IMAGE }}:${{ github.sha }} .
         docker push ${{ env.FRONTEND_IMAGE }}:${{ github.sha }}
 
-    - name: Get GKE Credentials
-      uses: google-github-actions/get-gke-credentials@v1
-      with:
-        cluster_name: ${{ env.CLUSTER_NAME }}
-        location: ${{ env.REGION }}
-
-    - name: Update YAMLs and Deploy
+    - name: Update YAMLs and Push to Git
       run: |
         sed -i "s|image: .*spring-app.*|image: ${{ env.BACKEND_IMAGE }}:${{ github.sha }}|g" k8s/03-spring.yaml
         sed -i "s|image: .*react-app.*|image: ${{ env.FRONTEND_IMAGE }}:${{ github.sha }}|g" k8s/04-react.yaml
-        kubectl apply -f k8s/
-
-    - name: Verify Deployment
-      run: |
-        kubectl rollout status deployment/spring-app-deployment
-        kubectl rollout status deployment/react-app-deployment
+        
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        
+        git add k8s/03-spring.yaml k8s/04-react.yaml
+        git commit -m "Update images to ${{ github.sha }} [skip ci]"
+        git push
