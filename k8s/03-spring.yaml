@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: spring-app
-        image: europe-central2-docker.pkg.dev/uplifted-sol-493208-m7/projekt-biblioteka/spring-app:c4a3947ff7199b64a6e9dd9313d5aa939873c227
+        image: europe-central2-docker.pkg.dev/uplifted-sol-493208-m7/projekt-biblioteka/spring-app:ce01c3c4e63c980a9a84df9a28174e95265fc5b9
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 444
