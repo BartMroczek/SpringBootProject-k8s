@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: react-app
-        image: europe-central2-docker.pkg.dev/uplifted-sol-493208-m7/projekt-biblioteka/react-app:abc313d9a93814ac016d8f0e2051e230b1c91e75
+        image: europe-central2-docker.pkg.dev/uplifted-sol-493208-m7/projekt-biblioteka/react-app:34d59d261bf0911d40315280ab97d9c30c55711e
         imagePullPolicy: Always
         ports:
         - containerPort: 80
