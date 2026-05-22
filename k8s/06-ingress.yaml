@@ -4,7 +4,7 @@ metadata:
   name: biblioteka-ingress
   annotations:
     kubernetes.io/ingress.global-static-ip-name: "biblioteka-static-ip"
-    force-update: "6" 
+    force-update: "9" 
 spec:
   rules:
   - host: "biblioteka.endpoints.uplifted-sol-493208-m7.cloud.goog"
@@ -21,7 +21,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: grafana
+            name: prom-stack-grafana 
             port:
               number: 80
       - path: /
